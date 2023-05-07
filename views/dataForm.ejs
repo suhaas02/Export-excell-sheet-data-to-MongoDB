@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 60vh;
+            background-color: whitesmoke;
         }
         h1{
             margin:5% 0;
@@ -22,11 +23,11 @@
 </head>
 <body>
     <div>
-        <h1>Import Excel file to mongodb database</h1>
+        <h1>Import Excel file Data to MongoDB database</h1>
         <form action="/upload" class="form-control w-50" enctype="multipart/form-data" method="post">
-            <input type="file" name="uploadfile" class="form-control" required accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' >
-            <input type="submit" class="form-control btn-info" value="Upload Excel">
-     </form>
+            <input type="file" name="excelFile" class="form-control" required >
+            <input type="submit" class="form-control btn-info">
+        </form>
     </div>
 </body>
 </html>

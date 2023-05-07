@@ -4,14 +4,14 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const dotenv = require('dotenv');
-const mongodb = require('mongodb');
 const dataUp = require('./models/dataExcel')
 const csvtojson = require('csvtojson')
 const multer = require('multer');
 const path = require('path');
-const app = express();
+
 const importFile = require('./utils/fileImport')
 dotenv.config();
+const app = express();
 
 //defining the middlewares
 app.use(morgan('tiny'));
@@ -35,18 +35,20 @@ var excelStorage = multer.diskStorage({
 })
 
 //adding and configuring multer
-var dataUpload = multer({ storage: excelStorage })
+var dataUpload = multer({ storage: excelStorage ,encoding:'text/csv'})
 
+//defining get request for landing page
 app.get("/", (req, res) => {
     // res.send("Welcome to API");
     res.render('dataForm.ejs');
 });
 
 //uploading excel sheet file to mongodb --> POST request
-app.post('/upload',dataUpload.single("uploadfile"), (req,res) => {
+app.post('/upload',dataUpload.single("excelFile"), (req,res) => {
     // importFile('/dataUpload' + req.file.filename);
     console.log(req.file)
     importFile(req.file.path)
+    return res.send("file uploaded successfully")
     // res.send("File successfully uploaded.");
 })
 
